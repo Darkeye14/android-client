@@ -20,8 +20,6 @@ data class LoanDisbursement(
 
     var transactionAmount: Double? = null,
 
-    var paymentId: Int? = null,
-
     var locale: String? = "en",
 
     var dateFormat: String? = "dd MMMM yyyy",

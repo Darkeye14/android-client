@@ -281,7 +281,7 @@ private fun LoanAccountDisbursementContent(
                         )
                         val loanDisbursement = LoanDisbursement(
                             note = note,
-                            paymentId = paymentTypeId,
+
                             actualDisbursementDate = date,
                             transactionAmount = amount.toDouble(),
                         )
