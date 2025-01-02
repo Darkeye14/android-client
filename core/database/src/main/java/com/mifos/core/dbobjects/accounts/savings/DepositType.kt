@@ -10,13 +10,10 @@
 package com.mifos.core.dbobjects.accounts.savings
 
 import android.os.Parcelable
-import com.mifos.core.database.MifosDatabase
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.mifos.core.model.APIEndPoint
-import com.mifos.core.model.MifosBaseModel
-import com.raizlabs.android.dbflow.annotation.Column
-import com.raizlabs.android.dbflow.annotation.ModelContainer
-import com.raizlabs.android.dbflow.annotation.PrimaryKey
-import com.raizlabs.android.dbflow.annotation.Table
 import kotlinx.parcelize.Parcelize
 
 /*
@@ -24,18 +21,17 @@ import kotlinx.parcelize.Parcelize
  * See https://github.com/openMF/android-client/blob/master/LICENSE.md
  */
 @Parcelize
-@Table(database = MifosDatabase::class, name = "SavingAccountDepositType")
-@ModelContainer
+@Entity("SavingAccountDepositType")
 class DepositType(
     @PrimaryKey
     var id: Int? = null,
 
-    @Column
+    @ColumnInfo("code")
     var code: String? = null,
 
-    @Column
+    @ColumnInfo("value")
     var value: String? = null,
-) : MifosBaseModel(), Parcelable {
+) : Parcelable {
 
     val isRecurring: Boolean
         get() = ServerTypes.RECURRING.id == id

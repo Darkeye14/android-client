@@ -10,8 +10,10 @@
 package com.mifos.core.dbobjects.accounts.loan
 
 import android.os.Parcelable
-import com.mifos.core.database.MifosDatabase
-import com.mifos.core.model.MifosBaseModel
+import androidx.room.ColumnInfo
+import androidx.room.Embedded
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.mifos.core.objects.account.loan.AmortizationType
 import com.mifos.core.objects.account.loan.Currency
 import com.mifos.core.objects.account.loan.InterestCalculationPeriodType
@@ -21,37 +23,31 @@ import com.mifos.core.objects.account.loan.RepaymentFrequencyType
 import com.mifos.core.objects.account.loan.RepaymentSchedule
 import com.mifos.core.objects.account.loan.TermPeriodFrequencyType
 import com.mifos.core.objects.account.loan.Transaction
-import com.raizlabs.android.dbflow.annotation.Column
-import com.raizlabs.android.dbflow.annotation.ForeignKey
-import com.raizlabs.android.dbflow.annotation.ModelContainer
-import com.raizlabs.android.dbflow.annotation.PrimaryKey
-import com.raizlabs.android.dbflow.annotation.Table
 import kotlinx.parcelize.Parcelize
 
-@Table(database = MifosDatabase::class)
-@ModelContainer
+@Entity("LoanWithAssociations")
 @Parcelize
 data class LoanWithAssociations(
     @PrimaryKey
     var id: Int = 0,
 
-    @Column
+    @ColumnInfo("accountNo")
     var accountNo: String = "",
 
-    @Column
-    @ForeignKey(saveForeignKeyModel = true)
+    @ColumnInfo("status")
+    @Embedded
     var status: Status = Status(),
 
     var clientId: Int = 0,
 
-    @Column
+    @ColumnInfo("clientName")
     var clientName: String = "",
 
     var clientOfficeId: Int = 0,
 
     var loanProductId: Int = 0,
 
-    @Column
+    @ColumnInfo("loanProductName")
     var loanProductName: String = "",
 
     var loanProductDescription: String = "",
@@ -66,7 +62,7 @@ data class LoanWithAssociations(
 
     var loanOfficerId: Int = 0,
 
-    @Column
+    @ColumnInfo("loanOfficerName")
     var loanOfficerName: String = "",
 
     var loanType: LoanType = LoanType(),
@@ -105,12 +101,12 @@ data class LoanWithAssociations(
 
     var syncDisbursementWithMeeting: Boolean = false,
 
-    @Column
-    @ForeignKey(saveForeignKeyModel = true)
+    @ColumnInfo("timeline")
+    @Embedded
     var timeline: Timeline = Timeline(),
 
-    @Column
-    @ForeignKey(saveForeignKeyModel = true)
+    @ColumnInfo("summary")
+    @Embedded
     var summary: Summary = Summary(),
 
     var repaymentSchedule: RepaymentSchedule = RepaymentSchedule(),
@@ -132,7 +128,7 @@ data class LoanWithAssociations(
     var inArrears: Boolean = false,
 
     var isNPA: Boolean = false,
-) : MifosBaseModel(), Parcelable {
+) : Parcelable {
 
     fun isInArrears(): Boolean {
         return inArrears

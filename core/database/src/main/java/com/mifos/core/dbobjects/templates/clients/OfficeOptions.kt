@@ -10,11 +10,8 @@
 package com.mifos.core.dbobjects.templates.clients
 
 import android.os.Parcelable
-import com.mifos.core.database.MifosDatabase
-import com.mifos.core.model.MifosBaseModel
-import com.raizlabs.android.dbflow.annotation.ModelContainer
-import com.raizlabs.android.dbflow.annotation.PrimaryKey
-import com.raizlabs.android.dbflow.annotation.Table
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import kotlinx.parcelize.Parcelize
 
 /*
@@ -24,15 +21,14 @@ import kotlinx.parcelize.Parcelize
 /**
  * Created by rajan on 13/3/16.
  */
-@Table(database = MifosDatabase::class, name = "ClientTemplateOfficeOptions")
-@ModelContainer
+@Entity("ClientTemplateOfficeOptions")
 @Parcelize
 data class OfficeOptions(
     @PrimaryKey
     var id: Int = 0,
     val name: String = "",
     val nameDecorated: String = "",
-) : MifosBaseModel(), Parcelable {
+) : Parcelable {
 
     override fun toString(): String {
         return "OfficeOptions{id=$id, name='$name', nameDecorated='$nameDecorated'}"

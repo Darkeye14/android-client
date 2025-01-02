@@ -10,12 +10,9 @@
 package com.mifos.core.dbobjects.templates.clients
 
 import android.os.Parcelable
-import com.mifos.core.database.MifosDatabase
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.mifos.core.dbobjects.noncore.DataTable
-import com.mifos.core.model.MifosBaseModel
-import com.raizlabs.android.dbflow.annotation.ModelContainer
-import com.raizlabs.android.dbflow.annotation.PrimaryKey
-import com.raizlabs.android.dbflow.annotation.Table
 import kotlinx.parcelize.Parcelize
 
 /*
@@ -27,8 +24,7 @@ import kotlinx.parcelize.Parcelize
  */
 
 @Parcelize
-@Table(database = MifosDatabase::class)
-@ModelContainer
+@Entity("ClientsTemplate")
 data class ClientsTemplate(
     var activationDate: IntArray = intArrayOf(),
     @PrimaryKey
@@ -41,7 +37,7 @@ data class ClientsTemplate(
     var clientClassificationOptions: List<Options> = ArrayList(),
     var clientLegalFormOptions: List<InterestType> = ArrayList(),
     var dataTables: List<DataTable> = ArrayList(),
-) : MifosBaseModel(), Parcelable {
+) : Parcelable {
 
     override fun toString(): String {
         return "ClientsTemplate{" +

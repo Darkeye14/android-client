@@ -10,11 +10,8 @@
 package com.mifos.core.dbobjects.templates.clients
 
 import android.os.Parcelable
-import com.mifos.core.database.MifosDatabase
-import com.mifos.core.model.MifosBaseModel
-import com.raizlabs.android.dbflow.annotation.ModelContainer
-import com.raizlabs.android.dbflow.annotation.PrimaryKey
-import com.raizlabs.android.dbflow.annotation.Table
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import kotlinx.parcelize.Parcelize
 
 /*
@@ -25,12 +22,11 @@ import kotlinx.parcelize.Parcelize
  * Created by rajan on 13/3/16.
  */
 @Parcelize
-@Table(database = MifosDatabase::class, name = "ClientTemplateSavingProductsOptions")
-@ModelContainer
+@Entity("ClientTemplateSavingProductsOptions")
 data class SavingProductOptions(
     @PrimaryKey
     var id: Int = 0,
     val name: String = "",
     val withdrawalFeeForTransfers: Boolean = false,
     val allowOverdraft: Boolean = false,
-) : MifosBaseModel(), Parcelable
+) : Parcelable

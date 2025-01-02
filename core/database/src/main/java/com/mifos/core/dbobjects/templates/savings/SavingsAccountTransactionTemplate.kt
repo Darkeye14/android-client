@@ -10,35 +10,31 @@
 package com.mifos.core.dbobjects.templates.savings
 
 import android.os.Parcelable
-import com.mifos.core.database.MifosDatabase
-import com.mifos.core.model.MifosBaseModel
-import com.raizlabs.android.dbflow.annotation.Column
-import com.raizlabs.android.dbflow.annotation.ModelContainer
-import com.raizlabs.android.dbflow.annotation.PrimaryKey
-import com.raizlabs.android.dbflow.annotation.Table
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import kotlinx.parcelize.Parcelize
 
 /**
  * Created by ishankhanna on 12/06/14.
  */
 @Parcelize
-@Table(database = MifosDatabase::class)
-@ModelContainer
+@Entity("SavingsAccountTransactionTemplate")
 class SavingsAccountTransactionTemplate(
     @PrimaryKey
     var accountId: Int? = null,
 
-    @Column
+    @ColumnInfo("accountNo")
     var accountNo: String? = null,
 
     var date: List<Int> = ArrayList(),
 
-    @Column
+    @ColumnInfo("reversed")
     var reversed: Boolean? = null,
 
     var paymentTypeOptions: List<com.mifos.core.dbobjects.PaymentTypeOption> = ArrayList(),
 
-) : MifosBaseModel(), Parcelable {
+) : Parcelable {
 
     fun isReversed(): Boolean? {
         return reversed

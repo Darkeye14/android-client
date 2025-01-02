@@ -10,57 +10,51 @@
 package com.mifos.core.dbobjects.accounts.loan
 
 import android.os.Parcelable
-import com.mifos.core.database.MifosDatabase
-import com.mifos.core.model.MifosBaseModel
-import com.raizlabs.android.dbflow.annotation.Column
-import com.raizlabs.android.dbflow.annotation.ForeignKey
-import com.raizlabs.android.dbflow.annotation.ModelContainer
-import com.raizlabs.android.dbflow.annotation.PrimaryKey
-import com.raizlabs.android.dbflow.annotation.Table
+import androidx.room.ColumnInfo
+import androidx.room.Embedded
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-@Table(database = MifosDatabase::class)
-@ModelContainer
+@Entity(tableName = "LoanAccount")
 data class LoanAccount(
-    @Column
+    @ColumnInfo(name = "clientId")
     var clientId: Long = 0,
 
-    @Column
+    @ColumnInfo(name = "groupId")
     var groupId: Long = 0,
 
-    @Column
+    @ColumnInfo(name = "centerId")
     var centerId: Long = 0,
 
     @PrimaryKey
     var id: Int? = null,
 
-    @Column
+    @ColumnInfo(name = "accountNo")
     var accountNo: String? = null,
 
-    @Column
+    @ColumnInfo(name = "externalId")
     var externalId: String? = null,
 
-    @Column
+    @ColumnInfo(name = "productId")
     var productId: Int? = null,
 
-    @Column
+    @ColumnInfo(name = "productName")
     var productName: String? = null,
 
-    @Column
-    @ForeignKey(saveForeignKeyModel = true)
+    @Embedded // For embedding Status object
     var status: Status? = null,
 
-    @Column
-    @ForeignKey(saveForeignKeyModel = true)
+    @Embedded // For embedding LoanType object
     var loanType: LoanType? = null,
 
-    @Column
+    @ColumnInfo(name = "loanCycle")
     var loanCycle: Int? = null,
 
-    @Column
+    @ColumnInfo(name = "inArrears")
     var inArrears: Boolean? = null,
-) : MifosBaseModel(), Parcelable {
+) : Parcelable {
 
     fun isInArrears(): Boolean? {
         return inArrears

@@ -10,27 +10,23 @@
 package com.mifos.core.dbobjects.client
 
 import android.os.Parcelable
-import com.mifos.core.database.MifosDatabase
-import com.mifos.core.model.MifosBaseModel
-import com.raizlabs.android.dbflow.annotation.Column
-import com.raizlabs.android.dbflow.annotation.ModelContainer
-import com.raizlabs.android.dbflow.annotation.PrimaryKey
-import com.raizlabs.android.dbflow.annotation.Table
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import kotlinx.parcelize.Parcelize
 
 /**
  * Created by Rajan Maurya on 05/07/16.
  */
 @Parcelize
-@Table(database = MifosDatabase::class)
-@ModelContainer
+@Entity(tableName = "ChargeTimeType")
 data class ChargeTimeType(
     @PrimaryKey
     var id: Int? = null,
 
-    @Column
+    @ColumnInfo("Code")
     var code: String? = null,
 
-    @Column
+    @ColumnInfo("value")
     var value: String? = null,
-) : MifosBaseModel(), Parcelable
+) : Parcelable

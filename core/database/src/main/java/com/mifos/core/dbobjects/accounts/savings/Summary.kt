@@ -10,17 +10,13 @@
 package com.mifos.core.dbobjects.accounts.savings
 
 import android.os.Parcelable
-import com.mifos.core.database.MifosDatabase
-import com.mifos.core.model.MifosBaseModel
-import com.raizlabs.android.dbflow.annotation.Column
-import com.raizlabs.android.dbflow.annotation.ModelContainer
-import com.raizlabs.android.dbflow.annotation.PrimaryKey
-import com.raizlabs.android.dbflow.annotation.Table
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-@Table(database = MifosDatabase::class, name = "SavingsAccountSummary")
-@ModelContainer
+@Entity("Summary")
 class Summary(
     @PrimaryKey
     @Transient
@@ -28,15 +24,15 @@ class Summary(
 
     var currency: Currency? = null,
 
-    @Column
+    @ColumnInfo("totalDeposits")
     var totalDeposits: Double? = null,
 
-    @Column
+    @ColumnInfo("accountBalance")
     var accountBalance: Double? = null,
 
-    @Column
+    @ColumnInfo("totalWithdrawals")
     var totalWithdrawals: Double? = null,
 
-    @Column
+    @ColumnInfo("totalInterestEarned")
     var totalInterestEarned: Double? = null,
-) : MifosBaseModel(), Parcelable
+) : Parcelable

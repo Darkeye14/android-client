@@ -10,63 +10,59 @@
 package com.mifos.core.dbobjects.accounts.loan
 
 import android.os.Parcelable
-import com.mifos.core.database.MifosDatabase
-import com.mifos.core.model.MifosBaseModel
-import com.raizlabs.android.dbflow.annotation.Column
-import com.raizlabs.android.dbflow.annotation.ModelContainer
-import com.raizlabs.android.dbflow.annotation.PrimaryKey
-import com.raizlabs.android.dbflow.annotation.Table
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import kotlinx.parcelize.Parcelize
 
 /**
  * Created by ishankhanna on 22/05/14.
  */
 @Parcelize
-@Table(database = MifosDatabase::class)
-@ModelContainer
+@Entity(tableName = "LoanRepaymentRequest")
 data class LoanRepaymentRequest(
     @PrimaryKey
     @Transient
     var timeStamp: Long = 0,
 
-    @Column
+    @ColumnInfo("loanId")
     @Transient
     var loanId: Int? = null,
 
-    @Column
+    @ColumnInfo("errorMessage")
     @Transient
     var errorMessage: String? = null,
 
-    @Column
+    @ColumnInfo("dateFormat")
     var dateFormat: String? = null,
 
-    @Column
+    @ColumnInfo("locale")
     var locale: String? = null,
 
-    @Column
+    @ColumnInfo("transactionDate")
     var transactionDate: String? = null,
 
-    @Column
+    @ColumnInfo("transactionAmount")
     var transactionAmount: String? = null,
 
-    @Column
+    @ColumnInfo("paymentType")
     var paymentTypeId: String? = null,
 
-    @Column
+    @ColumnInfo("note")
     var note: String? = null,
 
-    @Column
+    @ColumnInfo("accountNumber")
     var accountNumber: String? = null,
 
-    @Column
+    @ColumnInfo("checkNumber")
     var checkNumber: String? = null,
 
-    @Column
+    @ColumnInfo("routingCode")
     var routingCode: String? = null,
 
-    @Column
+    @ColumnInfo("receiptNumber")
     var receiptNumber: String? = null,
 
-    @Column
+    @ColumnInfo("bankName")
     var bankNumber: String? = null,
-) : MifosBaseModel(), Parcelable
+) : Parcelable

@@ -10,60 +10,51 @@
 package com.mifos.core.dbobjects.group
 
 import android.os.Parcelable
-import com.mifos.core.database.MifosDatabase
+import androidx.room.ColumnInfo
+import androidx.room.Embedded
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.mifos.core.dbobjects.Timeline
 import com.mifos.core.dbobjects.client.Status
-import com.mifos.core.model.MifosBaseModel
-import com.raizlabs.android.dbflow.annotation.Column
-import com.raizlabs.android.dbflow.annotation.ForeignKey
-import com.raizlabs.android.dbflow.annotation.ModelContainer
-import com.raizlabs.android.dbflow.annotation.PrimaryKey
-import com.raizlabs.android.dbflow.annotation.Table
 import kotlinx.parcelize.Parcelize
 
-/**
- * This is Center Model Table
- * Created by ishankhanna on 11/03/14.
- */
 @Parcelize
-@Table(database = MifosDatabase::class, useBooleanGetterSetters = false)
-@ModelContainer
+@Entity(tableName = "Center")
 data class Center(
     @PrimaryKey
     var id: Int? = null,
 
-    @Column
+    @ColumnInfo(name = "sync")
     @Transient
     var sync: Boolean = false,
 
-    @Column
+    @ColumnInfo(name = "accountNo")
     var accountNo: String? = null,
 
-    @Column
+    @ColumnInfo(name = "name")
     var name: String? = null,
 
-    @Column
+    @ColumnInfo(name = "officeId")
     var officeId: Int? = null,
 
-    @Column
+    @ColumnInfo(name = "officeName")
     var officeName: String? = null,
 
-    @Column
+    @ColumnInfo(name = "staffId")
     var staffId: Int? = null,
 
-    @Column
+    @ColumnInfo(name = "staffName")
     var staffName: String? = null,
 
-    @Column
+    @ColumnInfo(name = "hierarchy")
     var hierarchy: String? = null,
 
     var status: Status? = null,
 
-    @Column
+    @ColumnInfo(name = "active")
     var active: Boolean? = null,
 
-    @Column
-    @ForeignKey(saveForeignKeyModel = true)
+    @Embedded
     @Transient
     var centerDate: CenterDate? = null,
 
@@ -72,4 +63,4 @@ data class Center(
     var timeline: Timeline? = null,
 
     var externalId: String? = null,
-) : MifosBaseModel(), Parcelable
+) : Parcelable

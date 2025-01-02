@@ -11,66 +11,92 @@ package com.mifos.core.dbobjects
 
 import android.os.Parcel
 import android.os.Parcelable
-import com.raizlabs.android.dbflow.structure.BaseModel
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import kotlinx.parcelize.Parceler
+import kotlinx.parcelize.Parcelize
 
-/**
- * Created by ishankhanna on 09/02/14.
- */
-class Timeline() : BaseModel(), Parcelable {
-    var submittedOnDate: MutableList<Int> = ArrayList()
-    var submittedByUsername: String? = null
-    var submittedByFirstname: String? = null
-    var submittedByLastname: String? = null
-    var activatedOnDate: MutableList<Int> = ArrayList()
-    var activatedByUsername: String? = null
-    var activatedByFirstname: String? = null
-    var activatedByLastname: String? = null
-    var closedOnDate: MutableList<Int> = ArrayList()
-    var closedByUsername: String? = null
-    var closedByFirstname: String? = null
+@Parcelize
+@Entity(tableName = "Timeline")
+data class Timeline(
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "id")
+    var id: Int = 0,
+
+    @ColumnInfo(name = "submittedOnDate")
+    var submittedOnDate: List<Int> = ArrayList(),
+
+    @ColumnInfo(name = "submittedByUsername")
+    var submittedByUsername: String? = null,
+
+    @ColumnInfo(name = "submittedByFirstname")
+    var submittedByFirstname: String? = null,
+
+    @ColumnInfo(name = "submittedByLastname")
+    var submittedByLastname: String? = null,
+
+    @ColumnInfo(name = "activatedOnDate")
+    var activatedOnDate: List<Int> = ArrayList(),
+
+    @ColumnInfo(name = "activatedByUsername")
+    var activatedByUsername: String? = null,
+
+    @ColumnInfo(name = "activatedByFirstname")
+    var activatedByFirstname: String? = null,
+
+    @ColumnInfo(name = "activatedByLastname")
+    var activatedByLastname: String? = null,
+
+    @ColumnInfo(name = "closedOnDate")
+    var closedOnDate: List<Int> = ArrayList(),
+
+    @ColumnInfo(name = "closedByUsername")
+    var closedByUsername: String? = null,
+
+    @ColumnInfo(name = "closedByFirstname")
+    var closedByFirstname: String? = null,
+
+    @ColumnInfo(name = "closedByLastname")
     var closedByLastname: String? = null
+) : Parcelable {
 
-    constructor(parcel: Parcel) : this() {
-        parcel.readList(submittedOnDate, Int::class.java.classLoader)
-        submittedByUsername = parcel.readString()
-        submittedByFirstname = parcel.readString()
-        submittedByLastname = parcel.readString()
-        parcel.readList(activatedOnDate, Int::class.java.classLoader)
-        activatedByUsername = parcel.readString()
-        activatedByFirstname = parcel.readString()
-        activatedByLastname = parcel.readString()
-        parcel.readList(closedOnDate, Int::class.java.classLoader)
-        closedByUsername = parcel.readString()
-        closedByFirstname = parcel.readString()
+    constructor(parcel: Parcel) : this(
+        id = parcel.readInt(),
+        submittedOnDate = parcel.createIntArray()?.toList() ?: emptyList(),
+        submittedByUsername = parcel.readString(),
+        submittedByFirstname = parcel.readString(),
+        submittedByLastname = parcel.readString(),
+        activatedOnDate = parcel.createIntArray()?.toList() ?: emptyList(),
+        activatedByUsername = parcel.readString(),
+        activatedByFirstname = parcel.readString(),
+        activatedByLastname = parcel.readString(),
+        closedOnDate = parcel.createIntArray()?.toList() ?: emptyList(),
+        closedByUsername = parcel.readString(),
+        closedByFirstname = parcel.readString(),
         closedByLastname = parcel.readString()
-    }
+    )
 
-    override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeList(submittedOnDate)
-        parcel.writeString(submittedByUsername)
-        parcel.writeString(submittedByFirstname)
-        parcel.writeString(submittedByLastname)
-        parcel.writeList(activatedOnDate)
-        parcel.writeString(activatedByUsername)
-        parcel.writeString(activatedByFirstname)
-        parcel.writeString(activatedByLastname)
-        parcel.writeList(closedOnDate)
-        parcel.writeString(closedByUsername)
-        parcel.writeString(closedByFirstname)
-        parcel.writeString(closedByLastname)
-    }
+    companion object : Parceler<Timeline> {
 
-    override fun describeContents(): Int {
-        return 0
-    }
-
-    companion object CREATOR : Parcelable.Creator<Timeline> {
-        override fun createFromParcel(parcel: Parcel): Timeline {
-            return Timeline(parcel)
+        override fun Timeline.write(parcel: Parcel, flags: Int) {
+            parcel.writeInt(id)
+            parcel.writeIntArray(submittedOnDate.toIntArray())
+            parcel.writeString(submittedByUsername)
+            parcel.writeString(submittedByFirstname)
+            parcel.writeString(submittedByLastname)
+            parcel.writeIntArray(activatedOnDate.toIntArray())
+            parcel.writeString(activatedByUsername)
+            parcel.writeString(activatedByFirstname)
+            parcel.writeString(activatedByLastname)
+            parcel.writeIntArray(closedOnDate.toIntArray())
+            parcel.writeString(closedByUsername)
+            parcel.writeString(closedByFirstname)
+            parcel.writeString(closedByLastname)
         }
 
-        override fun newArray(size: Int): Array<Timeline?> {
-            return arrayOfNulls(size)
+        override fun create(parcel: Parcel): Timeline {
+            return Timeline(parcel)
         }
     }
 }

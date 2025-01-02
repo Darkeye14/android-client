@@ -10,45 +10,41 @@
 package com.mifos.core.dbobjects.accounts.savings
 
 import android.os.Parcelable
-import com.mifos.core.database.MifosDatabase
-import com.mifos.core.model.MifosBaseModel
+import androidx.room.ColumnInfo
+import androidx.room.Embedded
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.mifos.core.objects.account.saving.InterestCalculationDaysInYearType
 import com.mifos.core.objects.account.saving.InterestCalculationType
 import com.mifos.core.objects.account.saving.InterestCompoundingPeriodType
 import com.mifos.core.objects.account.saving.InterestPostingPeriodType
 import com.mifos.core.objects.account.saving.LockinPeriodFrequencyType
 import com.mifos.core.objects.account.saving.Timeline
-import com.raizlabs.android.dbflow.annotation.Column
-import com.raizlabs.android.dbflow.annotation.ForeignKey
-import com.raizlabs.android.dbflow.annotation.ModelContainer
-import com.raizlabs.android.dbflow.annotation.PrimaryKey
-import com.raizlabs.android.dbflow.annotation.Table
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-@Table(database = MifosDatabase::class)
-@ModelContainer
+@Entity("SavingsAccountWithAssociations")
 data class SavingsAccountWithAssociations(
     @PrimaryKey
     var id: Int? = null,
 
-    @Column
+    @ColumnInfo("accountNo")
     var accountNo: Int? = null,
 
     var clientId: Int? = null,
 
-    @Column
+    @ColumnInfo("clientName")
     var clientName: String? = null,
 
     var savingsProductId: Int? = null,
 
-    @Column
+    @ColumnInfo("savingsProductName")
     var savingsProductName: String? = null,
 
     var fieldOfficerId: Int? = null,
 
-    @Column
-    @ForeignKey(saveForeignKeyModel = true)
+    @ColumnInfo("status")
+    @Embedded
     var status: Status? = null,
 
     var timeline: Timeline? = null,
@@ -85,12 +81,12 @@ data class SavingsAccountWithAssociations(
 
     var overdraftLimit: Int? = null,
 
-    @Column
-    @ForeignKey(saveForeignKeyModel = true)
+    @ColumnInfo("summary")
+    @Embedded
     var summary: Summary? = null,
 
     var transactions: List<Transaction> = ArrayList(),
 
     var charges: List<Charge?> = ArrayList(),
 
-) : MifosBaseModel(), Parcelable
+) : Parcelable

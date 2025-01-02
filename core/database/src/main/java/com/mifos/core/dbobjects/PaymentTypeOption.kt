@@ -11,37 +11,34 @@ package com.mifos.core.dbobjects
 
 import android.os.Parcel
 import android.os.Parcelable
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
-import com.mifos.core.database.MifosDatabase
-import com.mifos.core.model.MifosBaseModel
-import com.raizlabs.android.dbflow.annotation.Column
-import com.raizlabs.android.dbflow.annotation.ModelContainer
-import com.raizlabs.android.dbflow.annotation.PrimaryKey
-import com.raizlabs.android.dbflow.annotation.Table
 
-@Table(database = MifosDatabase::class)
-@ModelContainer
+
+@Entity("PaymentTypeOption")
 data class PaymentTypeOption(
     @SerializedName("id")
     @PrimaryKey
     var id: Int = 0,
 
     @SerializedName("name")
-    @Column
+    @ColumnInfo("name")
     var name: String = "",
 
     @SerializedName("description")
-    @Column
+    @ColumnInfo("description")
     var description: String? = null,
 
     @SerializedName("isCashPayment")
-    @Column
+    @ColumnInfo("isCashPayment")
     var isCashPayment: Boolean? = null,
 
     @SerializedName("position")
-    @Column
+    @ColumnInfo("position")
     var position: Int? = null,
-) : MifosBaseModel(), Comparable<PaymentTypeOption>, Parcelable {
+) : Comparable<PaymentTypeOption>, Parcelable {
 
     override fun compareTo(another: PaymentTypeOption): Int {
         return position?.compareTo(another.position ?: 0) ?: 0
